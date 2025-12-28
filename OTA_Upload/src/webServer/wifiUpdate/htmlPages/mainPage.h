@@ -1,4 +1,4 @@
-static const char *mainPage = R"rawliteral(
+static const char *mainPage __attribute__((unused)) = R"rawliteral(
 <!DOCTYPE html>
 <html>
 <head>

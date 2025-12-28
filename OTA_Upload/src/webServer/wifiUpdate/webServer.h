@@ -2,9 +2,17 @@
 #define WebServerModule_H
 
 #include <Arduino.h>
-#include <Update.h>
-#include <WiFi.h>
-#include <WebServer.h>
+
+#ifdef ESP32
+    #include <Update.h>
+    #include <WiFi.h>
+    #include <WebServer.h>
+#elif defined(ESP8266)
+    #include <Updater.h>
+    #include <ESP8266WiFi.h>
+    #include <ESP8266WebServer.h>
+#endif
+
 #include "config/config.h"
 #include "webServer/wifiUpdate/htmlPages/mainPage.h"
 #include "webServer/wifiUpdate/htmlPages/uploadPage.h"
@@ -16,7 +24,11 @@ class WebServerModule {
         void handleClient();  // Processa pedidos
         
     private:
-        WebServer server;
+        #ifdef ESP32
+            WebServer server;
+        #elif defined(ESP8266)
+            ESP8266WebServer server;
+        #endif
         bool apMode;
         
         void wifiConfig();
